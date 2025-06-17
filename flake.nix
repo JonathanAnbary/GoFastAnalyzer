@@ -19,6 +19,7 @@
       packages = [
         # (pkgs.libsForQt5.callPackage ~/Desktop/dotfiles/nixos/ida-9.1-derivation.nix { })
         pkgs.go
+        pkgs.gox
         (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
           # select Python packages here
           python-lsp-server
