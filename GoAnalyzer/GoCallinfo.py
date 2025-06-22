@@ -280,7 +280,7 @@ class GoCall:
                 current_mcall.argloc = loc
 
         if len(scattered) > 1:
-            scif = ida_hexrays.scif_t(self.mba, tinfo_copy.copy())
+            scif = ida_hexrays.scif_t(self.mba, tinfo_copy.copy(), "")
             scif.consume_scattered(scattered)
             current_mcall.argloc = scif
             current_mcall.create_from_scattered_vdloc(

@@ -18,6 +18,7 @@
     devShells.x86_64-linux.default = pkgs.mkShell {
       packages = [
         # (pkgs.libsForQt5.callPackage ~/Desktop/dotfiles/nixos/ida-9.1-derivation.nix { })
+        pkgs.nodejs
         pkgs.go
         pkgs.gox
         (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [

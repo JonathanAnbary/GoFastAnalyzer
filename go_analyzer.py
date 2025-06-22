@@ -526,7 +526,7 @@ class CallAnalysisHooks(ida_hexrays.Hexrays_Hooks):
                             8,
                         )
                     else:
-                        retval_struc_tif.add_udm(name, ida_typeinf.BT_UNK_QWORD, retval_struc_tif.get_size())
+                        retval_struc_tif.add_udm(name, ida_typeinf.BT_UNK_QWORD, retval_struc_tif.get_size() * 8)
 
             return struc_name
 
@@ -911,7 +911,7 @@ class GoAnalyzer(ida_idaapi.plugin_t):
                     )
                 else:
                     string_struc.add_udm("ptr", ida_typeinf.BT_UNK_QWORD, 0)
-                    string_struc.add_udm("len", ida_typeinf.BT_UNK_QWORD, string_struc.get_size())
+                    string_struc.add_udm("len", ida_typeinf.BT_UNK_QWORD, string_struc.get_size() * 8)
 
             self.optimizer = R14Optimizer(self.runtime_g)
             self.initialized = True

@@ -13,9 +13,11 @@ if ida_pro.IDA_SDK_VERSION < 850:
     import ida_struct
     get_enum_member_value = ida_enum.get_enum_member_value
     get_enum_member_by_name = ida_enum.get_enum_member_by_name
+    get_enum_member_bmask = ida_enum.get_enum_member_bmask
 else:
     get_enum_member_value = idc.get_enum_member_value
     get_enum_member_by_name = idc.get_enum_member_by_name
+    get_enum_member_bmask = idc.get_enum_member_bmask
 import ida_hexrays
 import ida_typeinf
 from idc import BADADDR
@@ -106,7 +108,7 @@ class RtypeCall:
                         )
                     else:
                         my_slice = sid_or_tif
-                        my_slice.add_udm("ptr", ida_typeinf.BT_UNK_QWORD, my_slice.get_size())
+                        my_slice.add_udm("ptr", ida_typeinf.BT_UNK_QWORD, my_slice.get_size() * 8)
 
                     tinfo = ida_typeinf.tinfo_t()
                     ida_typeinf.parse_decl(
@@ -138,8 +140,8 @@ class RtypeCall:
                         )
                     else:
                         my_slice.set_udm_type(0, ptr_tinfo)
-                        my_slice.add_udm("len", ida_typeinf.BT_UNK_QWORD, my_slice.get_size())
-                        my_slice.add_udm("cap", ida_typeinf.BT_UNK_QWORD, my_slice.get_size())
+                        my_slice.add_udm("len", ida_typeinf.BT_UNK_QWORD, my_slice.get_size() * 8)
+                        my_slice.add_udm("cap", ida_typeinf.BT_UNK_QWORD, my_slice.get_size() * 8)
 
         return starting_dict
 
@@ -173,7 +175,7 @@ class MapCall(RtypeCall):
 
     def __init__(self, *args) -> None:
         super().__init__(*args)
-        self.search_pattern = re.compile("\[(.*?)\](.*)$")
+        self.search_pattern = re.compile(r"\[(.*?)\](.*)$")
 
     def init(self) -> None:
         super().init()
