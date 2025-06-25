@@ -77,7 +77,8 @@ def fill_tinfo(tinfo: ida_typeinf.tinfo_t) -> None:
             udm = ida_typeinf.udm_t()
             udm.offset = range_item.start_ea * 8
             udm.size = (range_item.end_ea - range_item.start_ea) * 8
-            char_tif ida_typeinf.tinfo_t()
+            char_tif = ida_typeinf.tinfo_t()
+
             char_tif.create_simple_type(ida_typeinf.BTF_CHAR)
             tif = ida_typeinf.tinfo_t()
             tif.create_array(char_tif, range_item.end_ea - range_item.start_ea)
