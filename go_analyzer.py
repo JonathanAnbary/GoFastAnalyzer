@@ -62,10 +62,14 @@ class Xmm15Optimizer(ida_hexrays.microcode_filter_t):
         as specified in the go abi
         """
         l_reg = cdg.load_effective_address(0)
+        if l_reg == ida_hexrays.mr_none:
+            return ida_hexrays.MERR_INSN
 
         # initialize micro operands
         off = ida_hexrays.mop_t(l_reg, 8)
         sel_reg = ida_hexrays.reg2mreg(ida_segregs.R_ss)
+        if sel_reg == ida_hexrays.mr_none:
+            return ida_hexrays.MERR_INSN
         sel = ida_hexrays.mop_t(sel_reg, 2)
         zero = ida_hexrays.mop_t()
         zero.make_number(0, 8)
